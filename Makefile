@@ -5,10 +5,10 @@ help:
 .DEFAULT_GOAL := help
 
 start-env: ## Start the docker compose
-		docker-compose -f ./kafka-docker/docker-compose.yml up -d
+		docker-compose -f docker-compose.yml up -d
 
 stop-env: ## Stop the docker compose
-		docker-compose -f ./kafka-docker/docker-compose.yml  down
+		docker-compose  down
 
 restart-env: stop-env start-env## Restart the docker compose
 
