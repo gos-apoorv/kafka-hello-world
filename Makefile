@@ -15,11 +15,17 @@ restart-env: stop-env start-env## Restart the docker compose
 scale-env: # Optional - Scale the cluster by adding more brokers (Will start a single zookeeper instance)
 		docker-compose scale kafka=3
 
-create-topic:
-		docker exec -it kafka-docker_kafka_1 /bin/sh
-		cd opt/kafka_2.13-2.8.1/bin
-		kafka-topics.sh --create --zookeeper zookeeper:2181 --replication-factor 1 --partitions 1 --topic  first_kafka_topic
-		kafka-topics.sh --list --zookeeper zookeeper:2181
+start-shell: ## Start the kafka shell in interactive mode
+		docker exec -it kafka /bin/sh
 
+create-topic: ## Create the kafka topic
+		docker exec kafka /bin/sh /opt/kafka_2.13-2.8.1/bin/kafka-topics.sh --create --zookeeper zookeeper:2181 --replication-factor 1 --partitions 1 --topic  message
 
+list-topic: ## List the kafka topics
+		docker exec kafka /bin/sh /opt/kafka_2.13-2.8.1/bin/kafka-topics.sh --list --zookeeper zookeeper:2181
 
+describe-topic: ## Descrive the kafka topic
+		docker exec kafka /bin/sh /opt/kafka_2.13-2.8.1/bin/kafka-topics.sh --describe --zookeeper zookeeper:2181 --topic  message
+
+delete-topic: ## Delete the kafka topic
+		docker exec kafka /bin/sh /opt/kafka_2.13-2.8.1/bin/kafka-topics.sh --delete --zookeeper zookeeper:2181 --topic  message
