@@ -29,3 +29,12 @@ describe-topic: ## Descrive the kafka topic
 
 delete-topic: ## Delete the kafka topic
 		docker exec kafka /bin/sh /opt/kafka_2.13-2.8.1/bin/kafka-topics.sh --delete --zookeeper zookeeper:2181 --topic  message
+
+create-env: ## Create the virtual environment
+		virtualenv -p python3 ktest
+
+activate-env: ## Activate the virtual environment
+		source ktest/bin/activate
+
+install-py-kafka: ## Install Python Kafka library
+		python3 -m pip install kafka-python
